@@ -1,0 +1,20 @@
+<article class="recipe-preview clearfix" ng-controller="RecipeCtrl as recipeCtrl">
+
+	<div class="thumbnail-wrapper">
+		<a href="recipe.html">
+			<div class="thumbnail" style="background-image:url('{{recipe.image}}');">
+			</div>
+		</a>
+	</div>
+	<div class="text-wrapper">
+		<h3><a href="recipe.html">{{recipe.name}}</a></h3>
+		<p class="info"><time datetime="{{recipe.datetime}}">{{recipe.datetime}}</time> by <span class="author">{{recipe.author}}</span> | User rating: <span class="rating">{{recipe.rating}}</span> | Comments: <span class="number-of-comments">{{recipe.comments.length}}</span></p>
+		<p class="short-description">
+		{{recipe.shortDescription}}
+		</p>
+		<p class="actions">
+			<a href="#recipe/{{recipe.id}}" class="button">Read more</a>
+			<span class="button" ng-click="recipeCtrl.increaseRating(recipe.id)">Rating +1</span>
+		</p>
+	</div>
+</article>	

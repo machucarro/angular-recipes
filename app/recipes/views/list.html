@@ -1,0 +1,20 @@
+<div class="content-wrapper" ng-controller="RecipesListCtrl as recipesListCtrl">
+	<div class="content-header">
+		<form id="search">
+			<input type="text" id="searchfield" name="searchfield" ng-model="searchQuery">
+			<button ng-click="recipesListCtrl.searchName(searchQuery)">Search</button>
+		</form>
+		<form id="sort">
+		Sort by: 
+			<select ng-model="sorting" ng-change="recipesListCtrl.setSorting(sorting)">
+			  <option value="date" selected>Date</option>
+			  <option value="name">Alphabetical order</option>
+			  <option value="rating">Rating</option>
+			</select> 
+		</form>
+	</div>
+	<recipe-list-item ng-repeat="recipe in recipesListCtrl.recipesToShow"></recipe-list-item>
+	<div class="pagination" ng-show="recipesListCtrl.showPagination()">
+		<span class="button" ng-click="recipesListCtrl.previousPage()"><</span> Page <span class="current-page"><strong>{{recipesListCtrl.pagingOptions.currentPage}}</strong></span> of <span class="page-count"><strong>{{recipesListCtrl.numberOfPages}}</strong></span> <span class="button" ng-click="recipesListCtrl.nextPage()">></span>
+	</div>
+</div>
