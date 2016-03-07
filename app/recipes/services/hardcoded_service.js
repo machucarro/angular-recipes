@@ -49,14 +49,15 @@ angular.module('recipes.services', [])
 		},
 		
 		get: function(id){
-			return recipes.filter(function(recipe){return recipe.id == id});
+			var found = recipes.filter(function(recipe){return recipe.id == id});
+			return found.length ? found[0] : null;
 		},
 		
 		add: function(newRecipe){
 			var ids = recipes.map(function(recipe){
 				return recipe.id;
 			});
-			newRecipe.id = Math.max(ids);
+			newRecipe.id = Math.max.apply(null,ids);
 			recipes.push(newRecipe);
 			return newRecipe.id;
 		},
@@ -73,6 +74,9 @@ angular.module('recipes.services', [])
 			return this.list({query: options.query}).length;
 		},
 
+		remove: function(id){
+			recipes = recipes.filter(function(recipe){recipe.id != id});
+		}
 	};	
 }]);
 

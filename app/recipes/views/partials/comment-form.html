@@ -1,0 +1,9 @@
+<div id="comment-form">
+	<form id="create-comment" method="post" ng-submit="createComment()">
+		Author:<br>
+		<input type="text" id="author" name="author" ng-model="newComment.author"><br>
+		Comment:<br>
+		<textarea id="comment" name="comment" rows="10" cols="30" ng-model="newComment.text"></textarea><br>
+		<button type="submit" form="create-comment" id="comment-submit" name="comment-submit">Submit</button>
+	</form>		
+</div>

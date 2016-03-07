@@ -1,5 +1,4 @@
-<article class="recipe-preview clearfix" ng-controller="RecipeCtrl as recipeCtrl">
-
+<article class="recipe-preview clearfix">
 	<div class="thumbnail-wrapper">
 		<a href="recipe.html">
 			<div class="thumbnail" style="background-image:url('{{recipe.image}}');">
@@ -13,8 +12,8 @@
 		{{recipe.shortDescription}}
 		</p>
 		<p class="actions">
-			<a href="#recipe/{{recipe.id}}" class="button">Read more</a>
-			<span class="button" ng-click="recipeCtrl.increaseRating(recipe.id)">Rating +1</span>
+			<a href="" ng-href="#recipes/{{recipe.id}}" class="button">Read more</a>
+			<span class="button" ng-click="recipeCtrl.increaseRating(recipe)">Rating +1</span>
 		</p>
 	</div>
 </article>	

@@ -1,0 +1,31 @@
+<div class="content-wrapper" ng-controller="RecipeDetailCtrl">
+	<h2>{{recipe.name}}</h2>
+	<article class="recipe clearfix">
+	
+		<div class="picture" style="background-image: url('{{recipe.image}}');">
+		</div>
+		<div class="text-wrapper">
+			<p class="info"><time datetime="{{recipe.datetime}}">{{recipe.datetime}}</time> by <span class="author">{{recipe.author}}</span> | User rating: <span class="rating">{{recipe.rating}}</span> | Comments: <span class="number-of-comments">{{recipe.comments.length}}</span></p>
+			<div class="description">
+			{{recipe.shortDescription}}
+			</div>
+			<div class="ingredients">
+				<recipe-ingredient ng-repeat="ingredient in recipe.ingredients"></ingredient>
+			</div>
+			<div class="description">
+			{{recipe.description}}
+			</div>
+			<p class="actions">
+				<span class="button" ng-click="increaseRating()">Rating +1</span>
+				<a href="" ng-href="#/recipes/{{recipe.id}}/edit" class="button">Edit</a>
+				<span class="button" ng-click="">Delete</span>
+			</p>
+		</div>
+	</article>
+	<h3>Comments:</h3>
+	<div class="comments">
+		<recipe-comment ng-repeat="comment in recipe.comments"></recipe-comment>
+	</div>
+	<h3>Add comment:</h3>
+	<comment-form></comment-form>
+</div>
