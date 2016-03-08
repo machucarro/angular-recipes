@@ -103,7 +103,10 @@ angular.module('recipes', ['ngRoute','recipes.services'])
 .controller('RecipeFormCtrl', function(recipesCrudService, $scope, $routeParams, $location) {
 	$scope.isNew = !$routeParams.id;
 	$scope.recipe = $scope.isNew ? {} : recipesCrudService.get($routeParams.id);
+	$scope.recipe.ingredients = $scope.recipe.ingredients || [];
 	$scope.newIngredient = {};
+	$scope.enoughIngredients = function(){return $scope.recipe.ingredients.length > 0};
+	$scope.notUniqueName = $scope.isNew && recipesCrudService.checkName($scope.recipe.name);
 
 	$scope.persistRecipe = function(){
 		if($scope.isNew){
@@ -116,7 +119,7 @@ angular.module('recipes', ['ngRoute','recipes.services'])
 	};
 
 	$scope.addIngredient = function(){
-		$scope.recipe.ingredients = $scope.recipe.ingredients || [];
+		
 		$scope.recipe.ingredients.push($scope.newIngredient);
 		$scope.newIngredient = {};
 	}

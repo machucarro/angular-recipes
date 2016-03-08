@@ -57,15 +57,18 @@ angular.module('recipes.services', [])
 			var ids = recipes.map(function(recipe){
 				return recipe.id;
 			});
-			newRecipe.id = Math.max.apply(null,ids);
+			newRecipe.id = Math.max.apply(null,ids) + 1;
+			newRecipe.rating = 0;
+			newRecipe.comments = [];
 			recipes.push(newRecipe);
-			return newRecipe.id;
+			return newRecipe;
 		},
 
 		update: function(updatedRecipe){
 			for (var i = recipes.length - 1; i >= 0; i--) {
 				if(recipes[i].id == updatedRecipe.id){
 					recipes[i] = updatedRecipe;
+					return updatedRecipe;
 				}
 			}
 		},
@@ -76,6 +79,10 @@ angular.module('recipes.services', [])
 
 		remove: function(id){
 			recipes = recipes.filter(function(recipe){recipe.id != id});
+		},
+
+		checkName: function(name){
+			return recipes.filter(function(recipe){recipe.name != name}).length > 0;
 		}
 	};	
 }]);

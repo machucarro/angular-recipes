@@ -241,11 +241,19 @@ button{
   font-size: 14px;
 }
 
+button[disabled]{
+  background-color: red;
+};
+
+label{
+  margin: 10px;
+};
+
 .error{
-  margin-top: -10px;
+  margin-top: 10px;
   margin-bottom: 20px;
-  display:none;
 }
+
 .error-message{
   padding: 5px;
   background-color: rgba(238,100,86,.2);

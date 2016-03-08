@@ -2,32 +2,50 @@
 			<h2 ng-show="isNew">Create new recipe:</h2>
 			<h2 ng-show="!isNew">Edit recipe:</h2>
 			<article class="create-recipe clearfix">
-				<form id="create-recipe" ng-submit="persistRecipe()">
-					Title:<br>
-					<input type="text" id="name" name="title" ng-model="recipe.name"><br>
-					<p class="error"><span class="error-message">Title must be unique!</span></p>
-					<p class="error"><span class="error-message">Required!</span></p>
-					Author:<br>
-					<input type="text" id="author" name="author" ng-model="recipe.author"><br>
-					<p class="error"><span class="error-message">Required!</span></p>
-					Short description:<br>
-					<textarea id="short-description" name="short-description" rows="10" cols="30"  ng-model="recipe.shortDescription">
-					</textarea><br>
-					<p class="error"><span class="error-message">Max 120 characters!</span></p>
+				<form id="create-recipe" name="newRecipeForm" ng-submit="persistRecipe(newRecipeForm)" novalidate>
+					<label>Title:</label><br>
+
+					<input type="text" id="name" name="name" ng-model="recipe.name" ng-required="true"><br>
+					{{newRecipeForm.title.$error.notunique}}
+					<div ng-show="newRecipeForm.name.$touched">
+						<p class="error" ng-show="notUniqueName"><span class="error-message">Title must be unique!</span></p>
+						<p class="error" ng-show="newRecipeForm.name.$error.required"><span class="error-message">Required!</span></p>
+					</div>
 					
-					Ingredients:<br>
-					<form name="ingredientForm">
-						<div id="add-ingredients"> 
-						Count: <input type="number" id="add-ingredient" ng-model="newIngredient.count"> Name: <input type="text" ng-model="newIngredient.name"><br>
-						</div>
-						<p class="error"><span class="error-message">Define at least one ingredient!</span></p>
-						<button type="button" name="add-ingredient" ng-click="addIngredient(ingredientForm)">Add ingredient</button><br>
-					</form>
+					<label>Author:</label><br>					
+					<input type="email" id="author" name="author" ng-model="recipe.author" ng-required="true"><br>
+					<div ng-show="newRecipeForm.author.$touched">	
+						<p class="error" ng-show="newRecipeForm.author.$error.required"><span class="error-message">Required!</span></p>
+						<p class="error" ng-show="newRecipeForm.author.$error.email"><span class="error-message">Nust be a valid email!</span></p>
+					</div>
+
+
+					<label>Short description:</label><br>
+					<textarea id="short-description" name="shortDescription" rows="10" cols="30"  ng-model="recipe.shortDescription" ng-maxlength="120" ng-required="true">
+					</textarea><br>
+					<div ng-show="newRecipeForm.shortDescription.$touched">
+						<p class="error" ng-show="newRecipeForm.shortDescription.$error.maxlength"><span class="error-message">Max 120 characters!</span></p>
+						<p class="error" ng-show="newRecipeForm.shortDescription.$error.required"><span class="error-message">Required!</span></p>					
+					</div>
+
+					<label>Ingredients:</label><br>
+					<div id="add-ingredients"> 
+					Count: <input type="number" id="add-ingredient" ng-model="newIngredient.count"> Name: <input type="text" name="newIngredientName" ng-model="newIngredient.name" ng-required="true"><br>
+					</div>
+					{{enoughIngredients}}
+					<div ng-show="newRecipeForm.newIngredientName.$touched">
+						<p class="error" ng-show="!enoughIngredients()"><span class="error-message">Define at least one ingredient!</span></p>
+					</div>
+					<button ng-disabled="newRecipeForm.newIngredientName.$invalid" type="button" name="add-ingredient" ng-click="addIngredient(ingredientForm)">Add ingredient</button><br>
 					<recipe-ingredient ng-repeat="ingredient in recipe.ingredients"></recipe-ingredient>
-					Description:<br>
-					<textarea id="description" name="description" rows="20" cols="30" ng-model="recipe.description"></textarea><br>
-					<p class="error"><span class="error-message">Max 500 characters!</span></p>
-					<button type="submit" form="create-recipe" id="recipe-submit" name="recipe-submit">Submit</button>
+					
+					<label>Description:</label><br>
+					<textarea id="description" name="description" rows="20" cols="30" ng-model="recipe.description" ng-maxlength="500" ng-required="true"></textarea><br>
+					<div class="error" ng-show="newRecipeForm.description.$touched">
+						<p class="error" ng-show="newRecipeForm.description.$error.maxlength"><span class="error-message">Max 500 characters!</span></p>
+						<p class="error" ng-show="newRecipeForm.description.$error.required"><span class="error-message">Required!</span></p>
+					</div>
+					<button type="submit" ng-disabled="newRecipeForm.$invalid" form="create-recipe" id="recipe-submit" name="recipe-submit">Submit</button>
 				</form>
 			</article>
 		</div>
