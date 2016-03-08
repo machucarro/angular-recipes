@@ -30,13 +30,14 @@
 
 					<label>Ingredients:</label><br>
 					<div id="add-ingredients"> 
-					Count: <input type="number" id="add-ingredient" ng-model="newIngredient.count"> Name: <input type="text" name="newIngredientName" ng-model="newIngredient.name" ng-required="true"><br>
+					Count: <input type="number" id="add-ingredient" ng-model="newIngredient.count"> Name: <input type="text" name="newIngredientName" ng-model="newIngredient.name"><br>
 					</div>
 					{{enoughIngredients}}
 					<div ng-show="newRecipeForm.newIngredientName.$touched">
 						<p class="error" ng-show="!enoughIngredients()"><span class="error-message">Define at least one ingredient!</span></p>
 					</div>
-					<button ng-disabled="newRecipeForm.newIngredientName.$invalid" type="button" name="add-ingredient" ng-click="addIngredient(ingredientForm)">Add ingredient</button><br>
+					{{newIngredient.name}}
+					<button type="button" name="add-ingredient" ng-click="addIngredient(ingredientForm)">Add ingredient</button><br>
 					<recipe-ingredient ng-repeat="ingredient in recipe.ingredients"></recipe-ingredient>
 					
 					<label>Description:</label><br>
@@ -45,6 +46,7 @@
 						<p class="error" ng-show="newRecipeForm.description.$error.maxlength"><span class="error-message">Max 500 characters!</span></p>
 						<p class="error" ng-show="newRecipeForm.description.$error.required"><span class="error-message">Required!</span></p>
 					</div>
+					{{newRecipeForm.$error}}
 					<button type="submit" ng-disabled="newRecipeForm.$invalid" form="create-recipe" id="recipe-submit" name="recipe-submit">Submit</button>
 				</form>
 			</article>
